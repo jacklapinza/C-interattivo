@@ -1,30 +1,33 @@
-pkgname=C-interattivo
+pkgname=c-interattivo
 pkgver=1.0
 pkgrel=1
 arch=('x86_64')
-
+pkgdesc="Programma C interattivo con menu (ISO C90)"
+url="https://esempio.org"
+license=('custom')
+depends=('ncurses')
+makedepends=('gcc')
 source=(
-    "src/main.c"
-    "src/benvenuti.c"
-    "src/menu_principale.c"
-    "src/menu_esercizi_vettori.c"
-    "src/menu_vettori_matrici.c"
-    "src/utils.c"
-    "src/funzioni.h"
-    "src/menu_principale.h"
-    "src/menu_esercizi_vettori.h"
-    "src/menu_vettori_matrici.h"
-    "src/sub_menu.h"
-    "src/utils.h"
-    "benvenuti.txt"
+    'main.c'
+    'benvenuti.c'
+    'menu_principale.c'
+    'menu_esercizi_vettori.c'
+    'menu_vettori_matrici.c'
+    'utils.c'
+    'benvenuti.txt'
+    'funzioni.h'
+    'menu_principale.h'
+    'menu_esercizi_vettori.h'
+    'menu_vettori_matrici.h'
+    'sub_menu.h'
+    'utils.h'
 )
-
 md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 
 build() {
-    cd "$srcdir/src"  # Change to the correct source directory
+    cd "$srcdir"
     gcc -Wall -std=c90 -D_POSIX_C_SOURCE=199309L \
-        -o "$srcdir/$pkgname" \
+        -o "$pkgname" \
         main.c benvenuti.c menu_principale.c menu_esercizi_vettori.c \
         menu_vettori_matrici.c utils.c \
         -lncurses
