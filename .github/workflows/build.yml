@@ -1,18 +1,22 @@
-name: Build Package
+<BS>name: Build Package
 
 on:
   push:
     branches:
-      - main
+      - main  # Trigger on push to the main branch
+  release:
+    types: [created]  # Trigger when a new release is created
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Step 2: Build package in Docker
       - name: Build package in Docker
         run: |
           docker run --rm -v "${{ github.workspace }}:/pkg" archlinux:base-devel bash -c "
@@ -26,9 +30,31 @@ jobs:
             su builder -c 'cd /pkg && makepkg --noconfirm --skipinteg --nosign'
           "
 
+      # Step 3: Upload built package as an artifact
       - name: Upload built package
         uses: actions/upload-artifact@v4
         with:
           name: built-package
           path: ./*.pkg.tar.zst
+
+      # Step 4: Create GitHub release
+      - name: Create GitHub release
+        id: create_release
+        uses: gh-actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: "Release ${{ github.ref }}"
+          body: "Release of the new version of C-interattivo"
+          draft: false
+          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Step 5: Upload package to the release
+      - name: Upload package to release
+        uses: gh-actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./*.pkg.tar.zst
+          asset_name: 'C-interattivo.pkg.tar.zst'
+          asset_content_type: application/octet-stream
 
