@@ -49,7 +49,7 @@ void menu_principale() {
                 menu_vettori_matrici();
             } else if (selected == 4) {
                 clear_screen();
-                printf("Hai selezionato: Prova\nPremi un tasto qualsiasi...\n");
+                printf("Hai selezionato: Prova questa è la versione aggiornata\nPremi un tasto qualsiasi...\n");
                 getch();
             } else if (selected == 5) {
                 clear_screen();
