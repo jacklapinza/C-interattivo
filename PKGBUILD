@@ -8,7 +8,7 @@ license=('custom')
 depends=('ncurses')
 makedepends=('gcc')
 source=(
-    'benvenuti.c'
+    'benvenuti.txt'
     )
 md5sums=('SKIP')
 
