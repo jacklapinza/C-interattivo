@@ -25,13 +25,15 @@ jobs:
             # Update the system and install required packages as root
             pacman -Syu --noconfirm && \
             pacman -S --noconfirm base-devel git && \
-            # Create a non-root user and set appropriate permissions
+            # Create a non-root user
             useradd -m builder && \
             mkdir -p /workspace/build && \
             chown builder:builder /workspace && \
             chown -R builder:builder /workspace/src && \
+            # Change to the workspace directory where PKGBUILD is located
+            cd /workspace && \
             # Run makepkg as the non-root builder user in the correct directory
-            su builder -c 'cd /workspace && makepkg -si --noconfirm'
+            su builder -c 'makepkg -si --noconfirm'
           "
 
       # Upload the package to GitHub Releases
