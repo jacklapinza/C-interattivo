@@ -30,10 +30,8 @@ jobs:
             mkdir -p /workspace/build && \
             chown builder:builder /workspace && \
             chown -R builder:builder /workspace/src && \
-            # Copy all the source files to the appropriate directory
-            cp -r /workspace/src /workspace/ && \
-            # Run makepkg as the non-root builder user
-            su builder -c 'makepkg -si --noconfirm'
+            # Run makepkg as the non-root builder user in the correct directory
+            su builder -c 'cd /workspace && makepkg -si --noconfirm'
           "
 
       # Upload the package to GitHub Releases
