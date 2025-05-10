@@ -17,13 +17,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Set up Arch Linux using Docker
+      # Set up Arch Linux in Docker
       - name: Set up Arch Linux in Docker
         run: |
+          docker pull archlinux:latest  # Explicitly pull the Arch Linux image
           docker run --rm -v $(pwd):/workspace -w /workspace archlinux:latest bash -c "
-            pacman -Syu --noconfirm && \
-            pacman -S --noconfirm base-devel git && \
-            makepkg -si --noconfirm"
+            # Create a non-root user
+            useradd -m builder && \
+            mkdir -p /workspace/build && \
+            chown builder:builder /workspace && \
+            su builder -c '
+              pacman -Syu --noconfirm && \
+              pacman -S --noconfirm base-devel git && \
+              makepkg -si --noconfirm
+            '"
 
       # Upload the package to GitHub Releases
       - name: Upload package to GitHub Releases
