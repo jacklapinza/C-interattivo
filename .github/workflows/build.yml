@@ -37,11 +37,15 @@ jobs:
           name: built-package
           path: ./*.pkg.tar.zst
 
-      # Step 4: Set Git identity (required for creating tags)
+      # Step 4: Set Git user info and permissions
       - name: Set Git user info
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
+          git config --global core.sshCommand "ssh -o StrictHostKeyChecking=no"
+          
+          # Ensure the repository is fully configured
+          git fetch --all
 
       # Step 5: Create GitHub release tag
       - name: Create GitHub release tag
