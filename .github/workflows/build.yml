@@ -20,7 +20,7 @@ jobs:
       # Set up Arch Linux using Docker
       - name: Set up Arch Linux in Docker
         run: |
-          docker run --rm -v $(pwd):/workspace -w /workspace archlinux/base:latest bash -c "
+          docker run --rm -v $(pwd):/workspace -w /workspace archlinux:latest bash -c "
             pacman -Syu --noconfirm && \
             pacman -S --noconfirm base-devel git && \
             makepkg -si --noconfirm"
