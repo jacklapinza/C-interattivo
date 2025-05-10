@@ -17,20 +17,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Set up the necessary environment
-      - name: Set up GCC
-        run: sudo apt update && sudo apt install -y gcc make
-
-      # Install dependencies (e.g., ncurses)
-      - name: Install dependencies
-        run: sudo apt install -y libncurses5-dev
-
-      # Run the build process
-      - name: Build package
+      # Set up Arch Linux using Docker
+      - name: Set up Arch Linux in Docker
         run: |
-          mkdir -p build
-          cd build
-          makepkg -si --noconfirm
+          docker run --rm -v $(pwd):/workspace -w /workspace archlinux/base:latest bash -c "
+            pacman -Syu --noconfirm && \
+            pacman -S --noconfirm base-devel git && \
+            makepkg -si --noconfirm"
 
       # Upload the package to GitHub Releases
       - name: Upload package to GitHub Releases
@@ -38,5 +31,5 @@ jobs:
         with:
           files: build/*.pkg.tar.zst  # Adjust based on your output package format
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Uses a secret token for authentication
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
