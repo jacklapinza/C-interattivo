@@ -3,16 +3,13 @@ pkgver=1.0
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Programma C interattivo con menu (ISO C90)"
-url="https://github.com/jacklapinza/C-interattivo"
+url="https://esempio.org"
 license=('custom')
 depends=('ncurses')
 makedepends=('gcc')
-
-# Update this to fetch the package directly from your GitHub release
 source=(
-    "https://github.com/jacklapinza/C-interattivo/releases/download/v${pkgver}/c-interattivo-${pkgver}-x86_64.pkg.tar.zst"
-)
-
+    "https://github.com/jacklapinza/C-interattivo/tree/main/src"
+    )
 md5sums=('SKIP')
 
 build() {
