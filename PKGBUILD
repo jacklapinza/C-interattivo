@@ -2,7 +2,6 @@ pkgname=C-interattivo
 pkgver=1.0
 pkgrel=1
 arch=('x86_64')
-...
 
 source=(
     "src/main.c"
@@ -23,13 +22,14 @@ source=(
 md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 
 build() {
-    cd "$srcdir/src"
+    cd "$srcdir/src"  # Change to the correct source directory
     gcc -Wall -std=c90 -D_POSIX_C_SOURCE=199309L \
         -o "$srcdir/$pkgname" \
         main.c benvenuti.c menu_principale.c menu_esercizi_vettori.c \
         menu_vettori_matrici.c utils.c \
         -lncurses
 }
+
 package() {
     install -Dm755 "$srcdir/$pkgname" "$pkgdir/usr/bin/$pkgname"
     install -Dm644 "$srcdir/benvenuti.txt" "$pkgdir/usr/share/$pkgname/benvenuti.txt"
