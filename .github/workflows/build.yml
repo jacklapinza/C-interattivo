@@ -22,15 +22,15 @@ jobs:
         run: |
           docker pull archlinux:latest  # Explicitly pull the Arch Linux image
           docker run --rm -v $(pwd):/workspace -w /workspace archlinux:latest bash -c "
-            # Create a non-root user
+            # Update the system and install required packages as root
+            pacman -Syu --noconfirm && \
+            pacman -S --noconfirm base-devel git && \
+            # Create a non-root user and perform the build with this user
             useradd -m builder && \
             mkdir -p /workspace/build && \
             chown builder:builder /workspace && \
-            su builder -c '
-              pacman -Syu --noconfirm && \
-              pacman -S --noconfirm base-devel git && \
-              makepkg -si --noconfirm
-            '"
+            su builder -c 'makepkg -si --noconfirm'
+          "
 
       # Upload the package to GitHub Releases
       - name: Upload package to GitHub Releases
