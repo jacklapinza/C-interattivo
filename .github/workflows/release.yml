@@ -10,18 +10,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      # Step 1: Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Download built package
+      # Step 2: Download built package artifact from the Build and Tag workflow
+      - name: Download built package artifact
         uses: actions/download-artifact@v4
         with:
           name: built-package
 
-      - name: Create GitHub release
+      # Step 3: Create GitHub release and upload package asset(s)
+      - name: Create GitHub release and upload package
         uses: softprops/action-gh-release@v2
         with:
-          files: ./*.pkg.tar.zst
+          files: |
+            ./*.pkg.tar.zst
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
