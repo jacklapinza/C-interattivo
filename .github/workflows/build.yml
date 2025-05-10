@@ -1,4 +1,4 @@
-<BS>name: Build Package
+name: Build Package
 
 on:
   push:
