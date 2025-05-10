@@ -3,29 +3,19 @@ name: Release
 on:
   push:
     tags:
-      - "v*.*.*"
+      - "*"  # trigger on all tag pushes
 
 jobs:
   release:
     runs-on: ubuntu-latest
-
     steps:
-      # Step 1: Checkout repository
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # Step 2: Download built package artifact from the Build and Tag workflow
-      - name: Download built package artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: built-package
-
-      # Step 3: Create GitHub release and upload package asset(s)
-      - name: Create GitHub release and upload package
+      - name: Upload release
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            ./*.pkg.tar.zst
+          files: ./*.pkg.tar.zst
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
