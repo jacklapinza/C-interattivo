@@ -29,8 +29,9 @@ jobs:
             useradd -m builder && \
             mkdir -p /workspace/build && \
             chown builder:builder /workspace && \
-            # Fix permissions for the src directory to ensure the builder user can access it
             chown -R builder:builder /workspace/src && \
+            # Copy all the source files to the appropriate directory
+            cp -r /workspace/src /workspace/ && \
             # Run makepkg as the non-root builder user
             su builder -c 'makepkg -si --noconfirm'
           "
