@@ -1,22 +1,21 @@
-name: Build Package
-
-on:
-  push:
-    branches:
-      - main
-  release:
-    types: [created]
-
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Build package in Docker
+      # Set Git user and shared repository settings
+      - name: Set Git user info and repository permissions
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git config core.sharedRepository group
+          sudo chmod -R g+rwX .
+          sudo find . -type d -exec chmod g+s '{}' +
+
+      # Build the package
       - name: Build package in Docker
         run: |
           docker run --rm -v "${{ github.workspace }}:/pkg" archlinux:base-devel bash -c "
@@ -30,26 +29,20 @@ jobs:
             su builder -c 'cd /pkg && makepkg --noconfirm --skipinteg --nosign'
           "
 
-      # Step 3: Upload built package as an artifact
+      # Upload built package as an artifact
       - name: Upload built package
         uses: actions/upload-artifact@v4
         with:
           name: built-package
           path: ./*.pkg.tar.zst
 
-      # Step 4: Set Git user info (for tagging)
-      - name: Set Git user info
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-
-      # Step 5: Create GitHub release tag and push it
+      # Create a tag for the release
       - name: Create GitHub release tag
         run: |
           git tag -a "v1.0.${{ github.run_number }}" -m "Release v1.0.${{ github.run_number }}"
           git push origin "v1.0.${{ github.run_number }}"
 
-      # Step 6: Create GitHub release and upload package
+      # Create GitHub release and upload package
       - name: Create GitHub release and upload package
         uses: softprops/action-gh-release@v1
         with:
