@@ -1,48 +1,38 @@
-name: Build and Package C-interattivo
+name: Build Arch Package
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the code from your repository
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      # Set up Arch Linux in Docker
-      - name: Set up Arch Linux in Docker
+      - name: Build package in Arch container
         run: |
-          docker pull archlinux:latest  # Explicitly pull the Arch Linux image
-          docker run --rm -v $(pwd):/workspace -w /workspace archlinux:latest bash -c "
-            # Listing contents of /workspace to confirm PKGBUILD exists
-            echo 'Listing contents of /workspace:'
-            ls -R /workspace && \
-            echo 'Building package...' && \
-            pacman -Syu --noconfirm && \
-            pacman -S --noconfirm base-devel git && \
-            # Create a non-root user and set correct permissions
-            useradd -m builder && \
-            mkdir -p /workspace/build && \
-            chown builder:builder /workspace && \
-            chown -R builder:builder /workspace/src && \
-            cd /workspace && \
-            # Run makepkg as the non-root user
-            su builder -c 'makepkg -si --noconfirm'
-          "
+          docker run --rm \
+            -v "$PWD:/pkg" \
+            -w /pkg \
+            archlinux:base bash -c "
+              set -e
+              pacman -Syu --noconfirm &&
+              pacman -S --noconfirm archlinux-keyring &&
+              pacman-key --init &&
+              pacman-key --populate archlinux &&
+              pacman -S --noconfirm base-devel git &&
+              useradd -m builder &&
+              chown -R builder:builder /pkg &&
+              su builder -c 'cd /pkg && makepkg -s --noconfirm'
+            "
 
-      # Upload the package to GitHub Releases
-      - name: Upload package to GitHub Releases
-        uses: softprops/action-gh-release@v1
+      - name: Upload built package
+        uses: actions/upload-artifact@v4
         with:
-          files: build/*.pkg.tar.zst
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: built-package
+          path: ./*.pkg.tar.zst
 
