@@ -37,13 +37,19 @@ jobs:
           name: built-package
           path: ./*.pkg.tar.zst
 
-      # Step 4: Create a release tag (if not already created)
+      # Step 4: Set Git identity (required for creating tags)
+      - name: Set Git user info
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      # Step 5: Create GitHub release tag
       - name: Create GitHub release tag
         run: |
           git tag -a "v1.0.${{ github.run_number }}" -m "Release v1.0.${{ github.run_number }}"
           git push origin "v1.0.${{ github.run_number }}"
 
-      # Step 5: Create GitHub release and upload package
+      # Step 6: Create GitHub release and upload package
       - name: Create GitHub release and upload package
         uses: softprops/action-gh-release@v1
         with:
