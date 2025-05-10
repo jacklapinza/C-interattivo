@@ -32,29 +32,16 @@ jobs:
 
       # Step 3: Upload built package as an artifact
       - name: Upload built package
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: built-package
           path: ./*.pkg.tar.zst
 
-      # Step 4: Create GitHub release
+      # Step 4: Create GitHub release and upload package
       - name: Create GitHub release
-        id: create_release
-        uses: gh-actions/create-release@v1
+        uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ github.ref }}
-          release_name: "Release ${{ github.ref }}"
-          body: "Release of the new version of C-interattivo"
-          draft: false
-          prerelease: false
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      # Step 5: Upload package to the release
-      - name: Upload package to release
-        uses: gh-actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./*.pkg.tar.zst
-          asset_name: 'C-interattivo.pkg.tar.zst'
-          asset_content_type: application/octet-stream
+          files: ./*.pkg.tar.zst
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
