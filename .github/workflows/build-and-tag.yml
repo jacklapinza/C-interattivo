@@ -1,0 +1,39 @@
+name: Build and Tag
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up git identity
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Build package inside container (adapt this to your setup)
+        run: |
+          docker run --rm -v ${{ github.workspace }}:/pkgbuild -w /pkgbuild archlinux bash -c "
+            pacman -Sy --noconfirm base-devel
+            makepkg -fs --noconfirm
+          "
+      
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-package
+          path: ./*.pkg.tar.zst
+
+      - name: Tag release version
+        run: |
+          VERSION="v1.0.${{ github.run_number }}"
+          git tag -a "$VERSION" -m "Release $VERSION"
+          git push origin "$VERSION"
+
