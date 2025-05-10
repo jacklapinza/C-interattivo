@@ -1,5 +1,5 @@
 Benvenuti a tutti,
-questo programma è nato come esercizio riepilogativo del corso
+questo programma  è nato come esercizio riepilogativo del corso
 d'Informatica. Il menu fornisce un accesso immediato a concetti
 di base e approfondimenti sui i singoli argomenti. Ogni esempio
 è interattivo e mostrerà esattemente il risultato. Puoi usicre
