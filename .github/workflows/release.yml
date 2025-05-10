@@ -3,25 +3,25 @@ name: Release
 on:
   push:
     tags:
-      - "*"  # trigger on all tag pushes
+      - "*"  # trigger on all tags
 
 jobs:
   release:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download built package artifact
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: built-package
+          name: built-package  # must match upload-artifact 'name' in build-tag.yml
 
       - name: Upload release asset
         uses: softprops/action-gh-release@v2
         with:
-          files: ./*.pkg.tar.zst
+          files: ./c-interattivo-*.pkg.tar.zst
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
