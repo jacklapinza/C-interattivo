@@ -8,14 +8,20 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Download built package artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: built-package
+
       - name: Upload release asset
         uses: softprops/action-gh-release@v2
         with:
-          files: ./c-interattivo-*.pkg.tar.zst  # match the built file name pattern
+          files: ./*.pkg.tar.zst
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
