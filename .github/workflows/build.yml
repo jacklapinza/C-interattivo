@@ -5,7 +5,7 @@ on:
     branches:
       - main  # Trigger on push to the main branch
   release:
-    types: [created]  # Trigger when a new release is created
+    types: [created]  # Trigger on release creation
 
 jobs:
   build:
@@ -37,11 +37,12 @@ jobs:
           name: built-package
           path: ./*.pkg.tar.zst
 
-      # Step 4: Create GitHub release and upload package
-      - name: Create GitHub release
+      # Step 4: Create a GitHub release and upload the package
+      - name: Create GitHub release and upload package
         uses: softprops/action-gh-release@v1
         with:
           files: ./*.pkg.tar.zst
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
