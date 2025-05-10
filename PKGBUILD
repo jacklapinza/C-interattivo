@@ -8,21 +8,9 @@ license=('custom')
 depends=('ncurses')
 makedepends=('gcc')
 source=(
-    'main.c'
     'benvenuti.c'
-    'menu_principale.c'
-    'menu_esercizi_vettori.c'
-    'menu_vettori_matrici.c'
-    'utils.c'
-    'benvenuti.txt'
-    'funzioni.h'
-    'menu_principale.h'
-    'menu_esercizi_vettori.h'
-    'menu_vettori_matrici.h'
-    'sub_menu.h'
-    'utils.h'
-)
-md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
+    )
+md5sums=('SKIP')
 
 build() {
     cd "$srcdir"
