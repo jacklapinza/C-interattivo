@@ -1,0 +1,48 @@
+# depslib dependency file v1.0
+1746909384 source:/home/jack/C-interattivo/src/source/main.c
+	"menu_principale.h"
+
+1746909384 /home/jack/C-interattivo/src/headers/menu_principale.h
+
+1746909384 source:/home/jack/C-interattivo/src/source/menu_esercizi_vettori.c
+	<stdio.h>
+	<stdlib.h>
+	"utils.h"
+	"funzioni.h"
+
+1746909384 /home/jack/C-interattivo/src/headers/utils.h
+
+1746909384 /home/jack/C-interattivo/src/headers/funzioni.h
+
+1746920585 source:/home/jack/C-interattivo/src/source/menu_principale.c
+	<stdio.h>
+	"menu_principale.h"
+	"sub_menu.h"
+	"funzioni.h"
+	"utils.h"
+
+1746909384 /home/jack/C-interattivo/src/headers/sub_menu.h
+
+1746909384 source:/home/jack/C-interattivo/src/source/menu_vettori_matrici.c
+	<stdio.h>
+	<stdlib.h>
+	"utils.h"
+	"sub_menu.h"
+	"funzioni.h"
+
+1747088345 source:/home/jack/C-interattivo/src/source/benvenuti.c
+	<stdio.h>
+	<stdlib.h>
+	"utils.h"
+	<string.h>
+	<unistd.h>
+
+1746909384 source:/home/jack/C-interattivo/src/source/utils.c
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<termios.h>
+	<time.h>
+	"utils.h"
+	<sys/ioctl.h>
+
