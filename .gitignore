@@ -2,3 +2,4 @@ c-interattivo.cbp
 c-interattivo.depend
 bin/Debug
 obj/Debug/src/source/menu_vettori_matrici.o
+obj/Debug/src/source
