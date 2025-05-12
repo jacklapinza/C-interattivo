@@ -8,10 +8,9 @@ license=('custom')
 depends=('ncurses')
 makedepends=('gcc')
 source=(
-    "benvenuti.txt"
     "https://github.com/jacklapinza/C-interattivo/tree/main/src"
     )
-md5sums=('SKIP','SKIP')
+md5sums=('SKIP')
 
 build() {
     cd "$srcdir"
