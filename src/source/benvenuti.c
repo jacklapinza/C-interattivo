@@ -4,7 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 #define MAX 300
-#define FILENAME "benvenuti.txt"
+#define FILENAME "/usr/share/c-interattivo/benvenuti.txt"
 
 void benvenuti() {
     FILE *fpIn;
