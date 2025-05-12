@@ -7,7 +7,9 @@ url="https://esempio.org"
 license=('custom')
 depends=('ncurses')
 makedepends=('gcc')
-source=(
+source=
+    (
+    "benvenuti.txt"
     "https://github.com/jacklapinza/C-interattivo/tree/main/src"
     )
 md5sums=('SKIP')
