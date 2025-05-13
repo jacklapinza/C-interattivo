@@ -1,29 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utils.h"
-#include "menu_principale.h"
 #include "funzioni.h"
 
-void menu_vettori_matrici() {
+void menu_vettori() {
     const char *options[] = {
-        "Concetti base",
-        "Vettori",
-        "Matrici",
-        "Torna al menu principale"
+        "Chiedi vettore ad utente",
+        "Torna indietro"
     };
     int selected = 0;
     int n_options = sizeof(options) / sizeof(options[0]);
     int ch;
 
     while (1) {
-        print_menu("Sezione: Vettori e Matrici", options, n_options, selected);
+        print_menu("Esercizi: Vettori e Matrici", options, n_options, selected);
         ch = getch();
         if(ch == 'q') {
             clear_screen();
-            printf("Hai premuto q. Uscita...\n");
+            printf("Hai premuto q... uscita in corso\n");
             exit(0);
         }
-        if (ch == 127) {
+        if(ch == 127) {
             clear_screen();
             break;
         }
@@ -37,15 +34,9 @@ void menu_vettori_matrici() {
         } else if (ch == '\n') {
             if (selected == 0) {
                 clear_screen();
-                printf("Qui probablimente mi conviene linkare direttamente il manuale\n");
+                prova();
                 getch();
             } else if (selected == 1) {
-                menu_vettori();
-            } else if (selected == 2) {
-                clear_screen();
-                printf("Hai selezionato matrici\n");
-                getch();
-            } else if (selected == 3) {
                 break;
             }
         }

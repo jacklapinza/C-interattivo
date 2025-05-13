@@ -11,19 +11,6 @@ makedepends=('git' 'gcc')
 source=("git+https://github.com/jacklapinza/C-interattivo.git")
 md5sums=('SKIP')
 
-# build() {
-#     cd "$srcdir/C-interattivo/src"
-#
-#     # Find all .c files in src and subdirectories
-#     sources=$(find . -name '*.c')
-#
-#     gcc -Wall -std=c90 -D_POSIX_C_SOURCE=199309L \
-#         -I"./headers" \
-#         -o "$pkgname" \
-#         $sources \
-#         -lncurses
-# }
-
 
 build() {
     cd "$srcdir/C-interattivo/src"
