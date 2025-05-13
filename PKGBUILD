@@ -37,7 +37,13 @@ build() {
 }
 
 
+# package() {
+#     install -Dm755 "$srcdir/C-interattivo/src/source/$pkgname" "$pkgdir/usr/bin/$pkgname"
+#     install -Dm644 "$srcdir/C-interattivo/src/text/benvenuti.txt" "$pkgdir/usr/share/$pkgname/benvenuti.txt"
+# }
+
 package() {
-    install -Dm755 "$srcdir/C-interattivo/src/source/$pkgname" "$pkgdir/usr/bin/$pkgname"
+    install -Dm755 "$srcdir/C-interattivo/src/$pkgname" "$pkgdir/usr/bin/$pkgname"
     install -Dm644 "$srcdir/C-interattivo/src/text/benvenuti.txt" "$pkgdir/usr/share/$pkgname/benvenuti.txt"
 }
+
