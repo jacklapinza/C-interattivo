@@ -43,6 +43,8 @@ void menu_vettori() {
 
 void mostra_esempio_vettore() {
 
+    /*
+
     char buffer[100];
     int j;
 
@@ -77,5 +79,7 @@ void mostra_esempio_vettore() {
     }
 
     printf("\nPremi un tasto per tornare indietro...");
+    */
+    prova();
     getch();
 }

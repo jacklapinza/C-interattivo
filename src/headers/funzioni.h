@@ -13,6 +13,7 @@ VETTORI
 */
 
 void mostra_esempio_vettore();
+void prova();
 
 
 #endif
