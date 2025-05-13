@@ -4,7 +4,6 @@
 void menu_principale();
 void menu_esercizi_vettori();
 void menu_vettori_matrici();
-void menu_vettori_matrici();
 void menu_vettori();
 
 #endif
