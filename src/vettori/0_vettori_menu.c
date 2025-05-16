@@ -1,29 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utils.h"
-#include "menu_principale.h"
 #include "funzioni.h"
 
-void menu_vettori_matrici() {
+void menu_vettori() {
     const char *options[] = {
-        "Concetti base",
-        "Vettori",
-        "Matrici",
-        "Torna al menu principale"
+        "1 - Nozioni principali",
+        "2 - Vettore da tastiera",
+        "3 - Bubble sorting",
+        "Torna indietro"
     };
     int selected = 0;
     int n_options = sizeof(options) / sizeof(options[0]);
     int ch;
 
     while (1) {
-        print_menu("Sezione: Vettori e Matrici", options, n_options, selected);
+        print_menu("Vettori", options, n_options, selected);
         ch = getch();
         if(ch == 'q') {
             clear_screen();
-            printf("Hai premuto q. Uscita...\n");
+            printf("Hai premuto q... uscita in corso\n");
             exit(0);
         }
-        if (ch == 127) {
+        if(ch == 127) {
             clear_screen();
             break;
         }
@@ -37,16 +36,17 @@ void menu_vettori_matrici() {
         } else if (ch == '\n') {
             if (selected == 0) {
                 clear_screen();
-                printf("Qui probablimente mi conviene linkare direttamente il manuale\n");
+                intro_vettori();
                 getch();
             } else if (selected == 1) {
-                menu_vettori();
-            } else if (selected == 2) {
                 clear_screen();
-                printf("Hai selezionato matrici\n");
+                vettore_utente();
                 getch();
-            } else if (selected == 3) {
-                break;
+            } else if (selected == 2) {
+
+                clear_screen();
+                bubble_sort();
+                getch();
             }
         }
     }

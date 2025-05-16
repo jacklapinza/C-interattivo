@@ -8,7 +8,7 @@ void menu_principale() {
         "Help",
         "Funzioni",
         "Puntatori",
-        "Vettori e Matrici",
+        "Vettori",
         "Prova",
         "Esci"
     };
@@ -45,7 +45,7 @@ void menu_principale() {
                 printf("Hai selezionato: Puntatori\nPremi un tasto per continuare...\n");
                 getch();
             } else if (selected == 3) {
-                menu_vettori_matrici();
+                menu_vettori();
             } else if (selected == 4) {
                 clear_screen();
                 printf("Hai selezionato: Prova questa è la versione aggiornata- Privata non funziona\nPremi un tasto qualsiasi...\n");

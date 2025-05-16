@@ -1,0 +1,8 @@
+In C, un vettore è una struttura dati che permette di memorizzare una sequenza di elementi dello stesso tipo in celle di memoria contigue.
+Ogni elemento del vettore è identificato da un indice numerico che parte da zero. La dichiarazione di un vettore specifica il tipo dei dati
+che può contenere e la sua dimensione, ovvero il numero massimo di elementi. Ad esempio, la dichiarazione `int numeri[10];` crea un vettore
+di dieci interi. Gli elementi si accedono tramite l'indice, ad esempio `numeri[0]` fa riferimento al primo elemento. In C, i vettori non sono
+oggetti dinamici: la loro dimensione deve essere nota al momento della compilazione, a meno che non si utilizzi memoria dinamica con le funzioni
+della libreria standard (`malloc`, `calloc`, ecc.). L'uso dei vettori richiede attenzione, in particolare per quanto riguarda i limiti degli indici,
+perché l'accesso a una posizione non valida della memoria può causare comportamenti imprevisti o errori di esecuzione.
+
